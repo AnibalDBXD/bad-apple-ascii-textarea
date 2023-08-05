@@ -1,0 +1,95 @@
+---
+import { DEFAULT_FRAME } from "@/constants"
+import playSvg from "/icons/play.svg"
+import stopSvg from "/icons/stop.svg"
+
+---
+
+<main class="w-screen h-screen flex flex-col p-4">
+  <h1 class="text-center text-2xl font-bold">
+    Bad Apple in ASCII
+    <br />
+  </h1>
+  <textarea class="
+  m-auto outline outline-2 text-base resize-none overflow-hidden w-[880px] min-h-[725px] mx-auto
+  " spellcheck={false}>
+    {DEFAULT_FRAME}
+  </textarea>
+  <div class="flex gap-4 mx-auto">
+    <button class="ml-8" id="play">
+      <img src={playSvg} alt="Play" />
+    </button>
+    <button id="stop" class="invisible">
+      <img src={stopSvg} alt="Stop" />
+    </button>
+</main>
+<script>
+import { PUBLIC_RESOURCES, BAD_APPLE_FRAME_RATE, DEFAULT_FRAME } from "@/constants"
+import getVideoFromText from "@/utils/getVideoFromText"
+
+  const audio = new Audio(PUBLIC_RESOURCES.badAppleAudio)
+  audio.volume = 0.2
+  const playButton = document.getElementById("play")
+  const textArea = document.querySelector("textarea")
+  const stopButton = document.getElementById("stop")
+
+  if(!playButton){
+    throw new Error("Play button not found")
+  }
+  if(!textArea){
+    throw new Error("Text area not found")
+  }
+  if(!stopButton){
+    throw new Error("Stop button not found")
+  }
+  if(!audio){
+    throw new Error("Audio not found")
+  }
+  if(!textArea){
+    throw new Error("Text area not found")
+  }
+
+  const video = await getVideoFromText({
+    split: "SPLIT",
+    videoPath: PUBLIC_RESOURCES.badAppleTextFrames,
+    textarea: textArea,
+    framerate: BAD_APPLE_FRAME_RATE,
+    onFinished: () => {
+      stop()
+    }
+  })
+
+  const play = () => {
+    audio.play()
+    video.play()
+    playButton.innerHTML = `<img src=${PUBLIC_RESOURCES.icons.pause} alt="Pause" />`
+    stopButton.classList.add("invisible")
+  }
+
+  const pause = () => {
+    audio.pause()
+    video.pause()
+    playButton.innerHTML = `<img src=${PUBLIC_RESOURCES.icons.play} alt="Play" />`
+    stopButton.classList.remove("invisible")
+  }
+
+  const stop = () => {
+    audio.pause()
+    video.reset()
+    audio.currentTime = 0
+    playButton.innerHTML = `<img src=${PUBLIC_RESOURCES.icons.play} alt="Play" />`
+    stopButton.classList.add("invisible")
+    // set default frame
+    textArea.value = DEFAULT_FRAME
+  }
+
+  playButton.addEventListener("click", () => {
+    if (audio.paused) {
+      play()
+    } else {
+      pause()
+    }
+  })
+  stopButton.addEventListener("click", stop)
+
+</script>

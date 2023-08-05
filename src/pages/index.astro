@@ -1,4 +1,5 @@
 ---
+import BadAppleASCII from "@/components/BadAppleASCII.astro"
 ---
 
 <html lang="en">
@@ -7,9 +8,14 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<!-- prefetch bad apple data -->
+		<link rel="prefetch" href="/badapple.txt" />
+		<link rel="prefetch" href="/audio.mp3" />
+		<title>
+			Bad Apple ASCII
+		</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="font-mono">
+		<BadAppleASCII  />
 	</body>
 </html>
