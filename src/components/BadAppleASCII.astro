@@ -2,6 +2,7 @@
 import { DEFAULT_FRAME } from "@/constants"
 import playSvg from "/icons/play.svg"
 import stopSvg from "/icons/stop.svg"
+import github from "/icons/github.svg"
 
 ---
 
@@ -22,7 +23,13 @@ import stopSvg from "/icons/stop.svg"
     <button id="stop" class="invisible">
       <img src={stopSvg} alt="Stop" />
     </button>
-</main>
+  </div>
+  <a
+  class="fixed right-4"
+  href="https://github.com/AnibalDBXD/bad-apple-ascii-textarea" rel="noopener noreferrer" target="_blank" class="ml-auto">
+    <img src={github} alt="Github" width="30" height="30" />
+  </a>
+  </main>
 <script>
 import { PUBLIC_RESOURCES, BAD_APPLE_FRAME_RATE, DEFAULT_FRAME } from "@/constants"
 import getVideoFromText from "@/utils/getVideoFromText"
