@@ -1,0 +1,31 @@
+---
+const { id } = Astro.props
+---
+
+<div class="animate-dots fixed top-2/4 left-[40%]" id={id}>
+</div>
+<style>
+  .animate-dots:after {
+    content: "Loading resources";
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 1px #fff;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 9999;
+    /*  animate dots */
+    animation: animate-dots 2s infinite;
+  }
+  @keyframes animate-dots {
+    0% {
+      content: 'Loading resources.';
+    }
+    33% {
+      content: 'Loading resources..';
+    }
+    66% {
+      content: 'Loading resources...';
+    }
+  }
+</style>

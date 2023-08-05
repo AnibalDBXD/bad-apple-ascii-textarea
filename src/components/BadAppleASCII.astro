@@ -4,6 +4,8 @@ import playSvg from "/icons/play.svg"
 import stopSvg from "/icons/stop.svg"
 import github from "/icons/github.svg"
 
+import Loading from "@/components/Loading.astro"
+
 ---
 
 <main class="w-screen h-screen flex flex-col p-4">
@@ -11,13 +13,14 @@ import github from "/icons/github.svg"
     Bad Apple in ASCII
     <br />
   </h1>
+  <Loading id="loading" />
   <textarea class="
   m-auto outline outline-2 text-base resize-none overflow-hidden w-[880px] min-h-[725px] mx-auto
   " spellcheck={false}>
     {DEFAULT_FRAME}
   </textarea>
   <div class="flex gap-4 mx-auto">
-    <button class="ml-8" id="play">
+    <button class="ml-8 invisible" id="play">
       <img src={playSvg} alt="Play" />
     </button>
     <button id="stop" class="invisible">
@@ -33,6 +36,8 @@ import github from "/icons/github.svg"
 <script>
 import { PUBLIC_RESOURCES, BAD_APPLE_FRAME_RATE, DEFAULT_FRAME } from "@/constants"
 import getVideoFromText from "@/utils/getVideoFromText"
+
+  const loading = document.getElementById("loading")
 
   const audio = new Audio(PUBLIC_RESOURCES.badAppleAudio)
   audio.volume = 0.2
@@ -65,6 +70,10 @@ import getVideoFromText from "@/utils/getVideoFromText"
       stop()
     }
   })
+  if(loading){
+    loading.classList.add("invisible")
+    playButton.classList.remove("invisible")
+  }
 
   const play = () => {
     audio.play()
